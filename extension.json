@@ -1,0 +1,13 @@
+{
+    "identifier": "ubse.x86asm",
+    "name": "x86-asm",
+    "organization": "Ubsefor",
+    "description": "Syntax highlighting for GNU/Intel Assembly in Nova",
+    "version": "1.0",
+    "categories": ["languages"],
+    "license": "MIT",
+    "repository": "https://github.com/ubsefor/X86-asm.novaextension",
+    "bugs": {
+        "url": "https://github.com/ubsefor/X86-asm.novaextension/issues"
+    }
+}

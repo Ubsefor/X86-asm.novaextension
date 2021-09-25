@@ -1,0 +1,264 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<syntax name="x86-asm">
+    <meta>
+        <name>x86-asm</name>
+        <type>structured</type>
+        <preferred-file-extension>S</preferred-file-extension>
+    </meta>
+
+    <detectors>
+        <extension priority="1.0">s,S,asm,sx</extension>
+    </detectors>
+
+    <indentation>
+    </indentation>
+
+    <comments>
+        <multiline>
+            <starts-with>
+                <expression>/\*</expression>
+            </starts-with>
+            <ends-with>
+                <expression>\*/</expression>
+            </ends-with>
+        </multiline>
+        <single>
+            <expression>@</expression>
+        </single>
+    </comments>
+
+    <brackets>
+      <pair open="[" close="]" />
+      <pair open="{" close="}" />
+      <pair open="(" close=")" />
+    </brackets>
+
+    <surrounding-pairs>
+        <pair open="{" close="}" />
+        <pair open="[" close="]" />
+        <pair open="(" close=")" />
+        <pair open="&apos;" close="&apos;" />
+        <pair open="&quot;" close="&quot;" />
+    </surrounding-pairs>
+
+    <scopes>
+        <!-- Meta -->
+        <scope name="x86-asm.keyword.processing">
+          <expression>\b(define|include|(end|el|else)?if|if(def|ndef)?|else)(\s(defined\([a-zA-Z_]+\)|[a-zA-Z_\.]+))?</expression>
+        </scope>
+
+        <scope name="x86-asm.keyword.declaration">
+          <expression>^\.(?:type|title|text|tag|subsection|struct|space|skip|size|section|rept|reloc|org|noaltmacro|model|macro|local|loc_mark_labels|loc|ln|list|line|internal|intel_syntax|include|ident|gnu_attribute|globl|global|func|fill|file|extern|exitm|eqv|equiv|equ|endm|endfunc|endef|dim|desc|def|data|altmacro|cfi_window_save|cfi_val_encoded_addr|cfi_undefined|cfi_startproc|cfi_signal_frame|cfi_sections|cfi_same_value|cfi_return_column|cfi_restore|cfi_remember_state|cfi_rel_offset|cfi_register|cfi_personality|cfi_offset|cfi_lsda|cfi_escape|cfi_endproc|cfi_def_cfa_register|cfi_def_cfa_offset|cfi_def_cfa|cfi_adjust_cfa_offset|balignw|balignl|align)\s
+          </expression>
+        </scope>
+
+        <scope name="x86-asm.identifier.method.routine">
+          <symbol type="method" />
+          <expression>^\s*\.?[a-zA-Z0-9]+_?[a-zA-Z0-9]*:</expression>
+        </scope>
+
+        <scope name="x86-asm.identifier.base-64">
+          <expression>^\s(?:aaa|aad|aam|aas|adc|add|and|arpl|bound|bsf|bsr|bswap|bt|btc|btr|bts|call|cbw|cdq|clt|cflush|clc|cld|cli|clts|cmc|cmp|cmps|cmpsb|cmpsd|cmpsw|cmpxchg|cmpxchg486|cmpxchg8b|cpuid|cwd|cwde|daa|das|dec|div|enter|esc|fatret|hlt|ibts|icebp|idiv|imul|in|inc|ins|insb|insd|insw|int|into|invd|invlpg|iret|iretd|iretdf|iretf|iretw|lahf|lar|lds|lea|leave|les|lfs|lgdt|lgs|lidt|lldt|lmsw|loadall|loadalld|loadall286|lock|lods|lodsb|lodsd|lodsw|loop|loopd|loope|looped|loopew|loopne|loopned|loopnew|loopnz|loopnzd|loopnzw|loopw|loopz|loopzd|loopzw|lsl|lss|ltr|mov|movs|movsb|movsd|movsw|movsx|movsbw|movslq|movzx|movzwl|movzbl|mul|neg|nop|not|or|out|outs|outsb|outsd|outsw|pop|popa|popad|popaw|popf|popfd|popfw|push|pusha|pushad|pushaw|pushd|pushf|pushfd|pushfw|pushw|rcl|rcr|rdmsr|rdpmc|rdshr|rdtsc|rep|repe|repne|repnz|repz|ret|retf|retn|rol|ror|rsdc|rsldt|rsm|rsts|sahf|sal|salc|sar|sbb|scas|scasb|scasd|scasw|sgdt|shl|shld|shr|shrd|sidt|sldt|smi|smint|smintold|smsw|stc|std|sti|stos|stosb|stosd|stosw|str|sub|svdc|svldt|svts|syscall|sysenter|sysexit|sysret|test|ud0|ud1|ud2|umov|verr|verw|wait|wbinvd|wrmsr|wrshr|xadd|xbts|xchg|xlat|xlatb|xor|cdqe|cqo|cmpsq|cmpxchg16|iretq|jrcxz|lodsq|movsxd|popfq|pushfq|rdtscp|scasq|stosq|swapgs)[bwlq]?\b</expression>
+        </scope>
+
+        <scope name="x86-asm.identifier.FPU">
+          <expression>(?:f2xm1|fabs|fadd|faddp|fbld|fbstp|fchs|fclex|fcom|fcomi|fcomip|fcomp|fcompp|fcos|fdecstp|fdisi|fdiv|fdivp|fdivr|fdivrp|feni|ffree|ffreep|fiadd|ficom|ficomp|fidiv|fidivr|fild|fimul|fincstp|finit|fist|fistp|fisub|fisubr|fld|fld1|fldcw|fldenv|fldenvd|fldenvw|fldl2e|fldl2t|fldlg2|fldln2|fldpi|fldz|fmul|fmulp|fnclex|fndisi|fneni|fninit|fnop|fnsave|fnsaved|fnsavew|fnstcw|fnstenv|fnstenvd|fnstenvw|fnstsw|fpatan|fprem|fprem1|fptan|frndint|frstor|frstord|frstorw|fsave|fsaved|fsavew|fscale|fsetpm|fsin|fsincos|fsqrt|fst|fstcw|fstenv|fstenvd|fstenvw|fstp|fstsw|fsub|fsubp|fsubr|fsubrp|ftst|fucom|fucomi|fucomp|fucomip|fucompp|fwait|fxam|fxch|fxtract|fyl2x|fyl2xp1)[slqt]?\b</expression>
+        </scope>
+
+        <scope name="x86-asm.identifier.SSE">
+          <expression>^\s(?:(?:addps|addss|andnps|andps|clflush|cmpeqps|cmpeqss|cmpleps|cmpless|cmpltps|cmpltss|cmpneqps|cmpneqss|cmpnleps|cmpnless|cmpnltps|cmpnltss|cmpordps|cmpordss|cmpps|cmpss|cmpunordps|cmpunordss|comiss|cvtpi2ps|cvtps2pi|cvtsi2ss|cvtss2si|cvttps2pi|cvttss2si|divps|divss|fxrstor|fxsave|ldmxcsr|lfence|maxps|maxss|mfence|minps|minss|movaps|movd|movhps|movlps|movntdq|movnti|movntpd|movntps|movss|movups|mulps|mulss|orps|packssdw|packsswb|packuswb|paddb|paddd|paddq|paddsb|paddsw|paddusb|paddusw|paddw|pand|pandn|pavgb|pavgw|pcmpeqb|pcmpeqd|pcmpeqw|pcmpgtb|pcmpgtd|pcmpgtw|pextrw|pinsrw|pmaddwd|pmaxsw|pmaxub|pminsw|pminub|pmulhuw|pmulhw|pmullw|pmuludq|por|psadbw|pshufd|pshufhw|pshuflw|pslld|pslldq|psllq|psllw|psrad|psraw|psrld|psrldq|psrlq|psrlw|psubb|psubd|psubq|psubsb|psubsw|psubusb|psubusw|psubw|punpckhbw|punpckhdq|punpckhqdq|punpckhwd|punpcklbw|punpckldq|punpcklqdq|punpcklwd|pxor|rcpps|rcpss|rsqrtps|rsqrtss|sfence|shufps|sqrtps|sqrtss|stmxcsr|subps|subss|ucomiss|unpckhps|unpcklps|xorps)[bwlq]?)|(?:maskmovdqu|movhlps|movlhps|movmskps|movdqa|movdqu|movdq2q|movq|movq2dq|pmovmskb)\b</expression>
+        </scope>
+
+        <scope name="x86-asm.identifier.SSE2">
+          <expression>^\s(?:(?:addpd|addsd|andnpd|andpd|cmpeqpd|cmpeqsd|cmplepd|cmplesd|cmpltpd|cmpltsd|cmpneqpd|cmpneqsd|cmpnlepd|cmpnlesd|cmpnltpd|cmpnltsd|cmpordpd|cmpordsd|cmppd|cmpsd|cmpunordpd|cmpunordsd|comisd|cvtdq2pd|cvtdq2ps|cvtpd2dq|cvtpd2pi|cvtpd2ps|cvtpi2pd|cvtps2dq|cvtps2pd|cvtsd2si|cvtsd2ss|cvtsi2sd|cvtss2sd|cvttpd2dq|cvttpd2pi|cvttps2dq|cvttsd2si|divpd|divsd|maxpd|maxsd|minpd|minsd|movapd|movhpd|movlpd|movsd|movupd|mulpd|mulsd|orpd|shufpd|sqrtpd|sqrtsd|subpd|subsd|ucomisd|unpckhpd|unpcklpd|xorpd)[bwlq]?)|(?:movmskpd)\b</expression>
+        </scope>
+
+        <scope name="x86-asm.identifier.SSE3">
+          <expression>^\s(?:(?:addsubpd|addsubps|haddpd|haddps|hsubpd|hsubps|lddqu|movddup|movshdup|movsldup)[bwlq]?)|(?:monitor|mwait|fisttp)\b</expression>
+        </scope>
+
+        <scope name="x86-asm.identifier.SSSE3">
+          <expression>^\s(?:pabsb|pabsw|pabsd|palignr|phaddw|phaddd|phaddsw|phsubw|phsubd|phsubsw|pmaddubsw|pmulhrsw|pshufb|psignb|psignw|psignd)[bwlq]?\b</expression>
+        </scope>
+
+        <scope name="x86-asm.identifier.SSE4-1">
+          <expression>^\s(?:blendpd|blendps|blendvpd|blendvps|dppd|dpps|extractps|insertps|movntdqa|mpsadbw|packusdw|pblendvb|pblendw|pcmpeqq|pextrb|pextrd|pextrq|pextrw|phminposuw|pinsrb|pinsrd|pinsrq|pmaxsb|pmaxsd|pmaxud|pmaxuw|pminsb|pminsd|pminud|pminuw|pmovsxbw|pmovsxbd|pmovsxbq|pmovsxwd|pmovsxwq|pmovsxdq|pmovzxbw|pmovzxbd|pmovzxbq|pmovzxwd|pmovzxwq|pmovzxdq|pmuldq|pmulld|ptest|roundpd|roundps|roundsd|roundss)[bwlq]?\b</expression>
+        </scope>
+
+        <scope name="x86-asm.identifier.SSE4-2">
+          <expression>^\s(?:crc32|pcmpestri|pcmpestrm|pcmpistri|pcmpistrm|pcmpgtq|popcnt)[bwlq]?\b</expression>
+        </scope>
+
+        <scope name="x86-asm.identifier.BMI1">
+          <expression>^\s(?:andn|bextr|blsi|blsmsk|blsr|lzcnt|tzcnt)[bwlq]?\b</expression>
+        </scope>
+
+        <scope name="x86-asm.identifier.BMI2">
+          <expression>^\s(?:bzhi|mulx|pdep|pext|rorx|sarx|shrx|shlx)[bwlq]?\b</expression>
+        </scope>
+
+        <scope name="x86-asm.identifier.AVX">
+          <expression>^\s(?:(?:vaddpd|vaddps|vaddsd|vaddss|vaddsubpd|vaddsubps|vandpd|vandps|vandnpd|vandnps|vblendpd|vblendps|vblendvpd|vblendvps|vblendvpd|vbroadcastss|vbroadcastsd|vbroadcastf128|vcmpeqpd|vcmpltpd|vcmplepd|vcmpunordpd|vcmpneqpd|vcmpnltpd|vcmpnlepd|vcmpordpd|vcmpeq_uqpd|vcmpngepd|vcmpngtpd|vcmpfalsepd|vcmpneq_oqpd|vcmpgepd|vcmpgtpd|vcmptruepd|vcmpeq_ospd|vcmplt_oqpd|vcmple_oqpd|vcmpunord_spd|vcmpneq_uspd|vcmpnlt_uqpd|vcmpnle_uqpd|vcmpord_spd|vcmpeq_uspd|vcmpnge_uqpd|vcmpngt_uqpd|vcmpfalse_ospd|vcmpneq_ospd|vcmpge_oqpd|vcmpgt_oqpd|vcmptrue_uspd|vcmppd|vcmpeqps|vcmpltps|vcmpleps|vcmpunordps|vcmpneqps|vcmpnltps|vcmpnleps|vcmpordps|vcmpeq_uqps|vcmpngeps|vcmpngtps|vcmpfalseps|vcmpneq_oqps|vcmpgeps|vcmpgtps|vcmptrueps|vcmpeq_osps|vcmplt_oqps|vcmple_oqps|vcmpunord_sps|vcmpneq_usps|vcmpnlt_uqps|vcmpnle_uqps|vcmpord_sps|vcmpeq_usps|vcmpnge_uqps|vcmpngt_uqps|vcmpfalse_osps|vcmpneq_osps|vcmpge_oqps|vcmpgt_oqps|vcmptrue_usps|vcmpps|vcmpeqsd|vcmpltsd|vcmplesd|vcmpunordsd|vcmpneqsd|vcmpnltsd|vcmpnlesd|vcmpordsd|vcmpeq_uqsd|vcmpngesd|vcmpngtsd|vcmpfalsesd|vcmpneq_oqsd|vcmpgesd|vcmpgtsd|vcmptruesd|vcmpeq_ossd|vcmplt_oqsd|vcmple_oqsd|vcmpunord_ssd|vcmpneq_ussd|vcmpnlt_uqsd|vcmpnle_uqsd|vcmpord_ssd|vcmpeq_ussd|vcmpnge_uqsd|vcmpngt_uqsd|vcmpfalse_ossd|vcmpneq_ossd|vcmpge_oqsd|vcmpgt_oqsd|vcmptrue_ussd|vcmpsd|vcmpeqss|vcmpltss|vcmpless|vcmpunordss|vcmpneqss|vcmpnltss|vcmpnless|vcmpordss|vcmpeq_uqss|vcmpngess|vcmpngtss|vcmpfalsess|vcmpneq_oqss|vcmpgess|vcmpgtss|vcmptruess|vcmpeq_osss|vcmplt_oqss|vcmple_oqss|vcmpunord_sss|vcmpneq_usss|vcmpnlt_uqss|vcmpnle_uqss|vcmpord_sss|vcmpeq_usss|vcmpnge_uqss|vcmpngt_uqss|vcmpfalse_osss|vcmpneq_osss|vcmpge_oqss|vcmpgt_oqss|vcmptrue_usss|vcmpss|vcomisd|vcomiss|vcvtdq2pd|vcvtdq2ps|vcvtpd2dq|vcvtpd2ps|vcvtps2dq|vcvtps2pd|vcvtsd2si|vcvtsd2ss|vcvtsi2sd|vcvtsi2ss|vcvtss2sd|vcvtss2si|vcvttpd2dq|vcvttps2dq|vcvttsd2si|vcvttss2si|vdivpd|vdivps|vdivsd|vdivss|vdppd|vdpps|vextractf128|vextractps|vhaddpd|vhaddps|vhsubpd|vhsubps|vinsertf128|vinsertps|vlddqu|vldqqu|vlddqu|vldmxcsr|vmaskmovps|vmaskmovpd|vmaxpd|vmaxps|vmaxsd|vmaxss|vminpd|vminps|vminsd|vminss|vmovapd|vmovaps|vmovq|vmovd|vmovddup|vmovdqa|vmovqqa|vmovdqa|vmovdqu|vmovqqu|vmovdqu|vmovhpd|vmovhps|vmovlpd|vmovlps|vmovmskpd|vmovmskps|vmovntdq|vmovntqq|vmovntdq|vmovntdqa|vmovntpd|vmovntps|vmovsd|vmovshdup|vmovsldup|vmovss|vmovupd|vmovups|vmpsadbw|vmulpd|vmulps|vmulsd|vmulss|vorpd|vorps|vpabsb|vpabsw|vpabsd|vpacksswb|vpackssdw|vpackuswb|vpackusdw|vpaddb|vpaddw|vpaddd|vpaddq|vpaddsb|vpaddsw|vpaddusb|vpaddusw|vpalignr|vpand|vpandn|vpavgb|vpavgw|vpblendvb|vpblendw|vpcmpestri|vpcmpestrm|vpcmpistri|vpcmpistrm|vpcmpeqb|vpcmpeqw|vpcmpeqd|vpcmpeqq|vpcmpgtb|vpcmpgtw|vpcmpgtd|vpcmpgtq|vpermilpd|vpermiltd2pd|vpermilmo2pd|vpermilmz2pd|vpermil2pd|vpermilps|vpermiltd2ps|vpermilmo2ps|vpermilmz2ps|vpermil2ps|vperm2f128|vpextrb|vpextrw|vpextrd|vpextrq|vphaddw|vphaddd|vphaddsw|vphminposuw|vphsubw|vphsubd|vphsubsw|vpinsrb|vpinsrw|vpinsrd|vpinsrq|vpmaddwd|vpmaddubsw|vpmaxsb|vpmaxsw|vpmaxsd|vpmaxub|vpmaxuw|vpmaxud|vpminsb|vpminsw|vpminsd|vpminub|vpminuw|vpminud|vpmovsxbw|vpmovsxbd|vpmovsxbq|vpmovsxwd|vpmovsxwq|vpmovsxdq|vpmovzxbw|vpmovzxbd|vpmovzxbq|vpmovzxwd|vpmovzxwq|vpmovzxdq|vpmulhuw|vpmulhrsw|vpmulhw|vpmullw|vpmulld|vpmuludq|vpmuldq|vpor|vpsadbw|vpshufb|vpshufd|vpshufhw|vpshuflw|vpsignb|vpsignw|vpsignd|vpslldq|vpsrldq|vpsllw|vpslld|vpsllq|vpsraw|vpsrad|vpsrlw|vpsrld|vpsrlq|vptest|vpsubb|vpsubw|vpsubd|vpsubq|vpsubsb|vpsubsw|vpsubusb|vpsubusw|vpunpckhbw|vpunpckhwd|vpunpckhdq|vpunpckhqdq|vpunpcklbw|vpunpcklwd|vpunpckldq|vpunpcklqdq|vpxor|vrcpps|vrcpss|vrsqrtps|vrsqrtss|vroundpd|vroundps|vroundsd|vroundss|vshufpd|vshufps|vsqrtpd|vsqrtps|vsqrtsd|vsqrtss|vstmxcsr|vsubpd|vsubps|vsubsd|vsubss|vtestps|vtestpd|vucomisd|vucomiss|vunpckhpd|vunpckhps|vunpcklpd|vunpcklps|vxorpd|vxorps)[bwlq]?)|(?:vmaskmovdqu|vmovhlps|vmovlhps|vpmovmskb|vzeroall|vzeroupper)\b</expression>
+        </scope>
+
+        <scope name="x86-asm.identifier.FMA">
+          <expression>^\s(?:vfmadd132ps|vfmadd132pd|vfmadd312ps|vfmadd312pd|vfmadd213ps|vfmadd213pd|vfmadd123ps|vfmadd123pd|vfmadd231ps|vfmadd231pd|vfmadd321ps|vfmadd321pd|vfmaddsub132ps|vfmaddsub132pd|vfmaddsub312ps|vfmaddsub312pd|vfmaddsub213ps|vfmaddsub213pd|vfmaddsub123ps|vfmaddsub123pd|vfmaddsub231ps|vfmaddsub231pd|vfmaddsub321ps|vfmaddsub321pd|vfmsub132ps|vfmsub132pd|vfmsub312ps|vfmsub312pd|vfmsub213ps|vfmsub213pd|vfmsub123ps|vfmsub123pd|vfmsub231ps|vfmsub231pd|vfmsub321ps|vfmsub321pd|vfmsubadd132ps|vfmsubadd132pd|vfmsubadd312ps|vfmsubadd312pd|vfmsubadd213ps|vfmsubadd213pd|vfmsubadd123ps|vfmsubadd123pd|vfmsubadd231ps|vfmsubadd231pd|vfmsubadd321ps|vfmsubadd321pd|vfnmadd132ps|vfnmadd132pd|vfnmadd312ps|vfnmadd312pd|vfnmadd213ps|vfnmadd213pd|vfnmadd123ps|vfnmadd123pd|vfnmadd231ps|vfnmadd231pd|vfnmadd321ps|vfnmadd321pd|vfnmsub132ps|vfnmsub132pd|vfnmsub312ps|vfnmsub312pd|vfnmsub213ps|vfnmsub213pd|vfnmsub123ps|vfnmsub123pd|vfnmsub231ps|vfnmsub231pd|vfnmsub321ps|vfnmsub321pd|vfmadd132ss|vfmadd132sd|vfmadd312ss|vfmadd312sd|vfmadd213ss|vfmadd213sd|vfmadd123ss|vfmadd123sd|vfmadd231ss|vfmadd231sd|vfmadd321ss|vfmadd321sd|vfmsub132ss|vfmsub132sd|vfmsub312ss|vfmsub312sd|vfmsub213ss|vfmsub213sd|vfmsub123ss|vfmsub123sd|vfmsub231ss|vfmsub231sd|vfmsub321ss|vfmsub321sd|vfnmadd132ss|vfnmadd132sd|vfnmadd312ss|vfnmadd312sd|vfnmadd213ss|vfnmadd213sd|vfnmadd123ss|vfnmadd123sd|vfnmadd231ss|vfnmadd231sd|vfnmadd321ss|vfnmadd321sd|vfnmsub132ss|vfnmsub132sd|vfnmsub312ss|vfnmsub312sd|vfnmsub213ss|vfnmsub213sd|vfnmsub123ss|vfnmsub123sd|vfnmsub231ss|vfnmsub231sd|vfnmsub321ss|vfnmsub321sd)[bwlq]?\b</expression>
+        </scope>
+
+
+        <scope name="x86-asm.identifier.cond_other">
+          <expression>^\s(?:set|cmov)(?:o|no|s|ns|e|z|ne|nz|b|nae|c|nb|ae|nc|be|na|a|nbe|l|nge|ge|nl|le|ng|g|nle|p|pe|po|np)[bwlq]?\b</expression>
+        </scope>
+
+
+        <scope name="x86-asm.value.stack">
+          <starts-with>
+            <expression>\{\h*</expression>
+          </starts-with>
+          <ends-with>
+            <expression>\h*\}\^?</expression>
+          </ends-with>
+          <subscopes>
+            <include syntax="self" collection="registers_list" />
+          </subscopes>
+        </scope>
+
+    </scopes>
+
+    <collections>
+        <!-- Tags -->
+        <collection name="registers">
+          <scope name="x86-asm.identifier.argument.registers">
+            <expression>^%?\b(?:(?:dil|sil|bpl)|(?:[re]?(?:ax|bx|cx|dx|di|si|sp|bp|ip))|(?:(?:a|b|c|d|sp|bp)[lh]+)|(?:[cdefgs]+s)|(?:r([8-9]|1[0-5])[blwd]?)|(?:[xy]?mm[0-7]))\b</expression>
+          </scope>
+        </collection>
+
+        <!-- Registers list -->
+        <collection name="registers_list">
+          <scope name="x86-asm.identifier.argument.registers">
+            <expression>(\w+)(?:\h*\-\h*(\w+))?(?:,\h*([a-zA-Z0-9,\-\h]+))?</expression>
+            <capture number="1">
+              <include syntax="self" collection="registers" />
+            </capture>
+            <capture number="2">
+              <include syntax="self" collection="registers" />
+            </capture>
+            <capture number="3">
+              <include syntax="self" collection="registers_list" />
+            </capture>
+          </scope>
+        </collection>
+
+        <collection name="fpu_regs">
+          <scope name="x86-asm.identifier.argument.fpu_regs">
+            <expression>^%?\b(?:st\(?[0-7]?)\W</expression>
+          </scope>
+        </collection>
+
+        <collection name="fpu_regs_list">
+          <scope name="x86-asm.identifier.argument.registers">
+            <expression>(\w+)(?:\h*\-\h*(\w+))?(?:,\h*([a-zA-Z0-9,\-\h]+))?</expression>
+            <capture number="1">
+              <include syntax="self" collection="fpu_regs" />
+            </capture>
+            <capture number="2">
+              <include syntax="self" collection="fpu_regs" />
+            </capture>
+            <capture number="3">
+              <include syntax="self" collection="fpu_regs_list" />
+            </capture>
+          </scope>
+        </collection>
+
+        <collection name="directives">
+          <scope name="x86-asm.argument.type">
+            <expression>^(?:(?:\bshort)|(?:\b(?:(?:s|d|sd|q|f|mm|xmm|ymm)?word|[st]?byte)(?: ptr)?)|(?:\breal(?:4|8|10)\b)|(?:\bd[bwdqft]\b)|\s\.(?:byte|short|hword|word|int|long|quad|octa|sleb128|uleb128|float|single|double|ascii|asciz|string|string8|string16))\b</expression>
+          </scope>
+        </collection>
+
+        <!-- Definitions -->
+        <collection name="definitions">
+          <scope name="x86-asm.variable.name">
+            <symbol type="variable" scope="local" />
+            <expression>\#?-?([a-zA-Z_][0-9a-zA-Z_]*)\b</expression>
+          </scope>
+        </collection>
+
+        <!-- Values -->
+        <collection name="values">
+          <scope name="x86-asm.value.number.hex">
+            <expression>\#?0x[0-9a-fA-F_]+\b</expression>
+          </scope>
+          <scope name="x86-asm.value.number.dec">
+            <expression>\#?[0-9]+\b</expression>
+          </scope>
+          <scope name="x86-asm.value.number.bin">
+            <expression>\#?0b[01]+\b</expression>
+          </scope>
+        </collection>
+
+        <collection name="labels_global">
+          <expression>^[$._]*\b[^'":;#\r\n]*:</expression>
+        </collection>
+
+        <collection name="labels">
+          <expression>^[$._]*\b[^'":;#\r\n]*</expression>
+        </collection>
+
+        <!-- Strings -->
+        <collection name="strings">
+          <scope name="x86-asm.string" spell-check="true">
+            <starts-with>
+              <expression>&quot;</expression>
+            </starts-with>
+            <ends-with>
+              <expression>&quot;</expression>
+            </ends-with>
+          </scope>
+          <scope name="x86-asm.string.char">
+            <expression>&apos;\S&apos;</expression>
+          </scope>
+        </collection>
+
+        <!-- Comments -->
+        <collection name="comments">
+          <scope name="x86-asm.comment.block" spell-check="true">
+            <starts-with>
+              <expression>/\*</expression>
+            </starts-with>
+            <ends-with>
+              <expression>\*/</expression>
+            </ends-with>
+          </scope>
+          <scope name="x86-asm.comment" spell-check="true">
+            <expression>([@\#;]|//)(.*)$</expression>
+            <capture number="2" name="x86-asm.comment.content" />
+          </scope>
+        </collection>
+
+        <!-- Tag Attributes -->
+        <collection name="x86-asm.tag.attributes">
+            <scope name="x86-asm.tag.attribute">
+                <strings>
+                  <string>ne</string>
+                  <string>eq</string>
+                  <string>cs</string>
+                  <string>hs</string>
+                  <string>cc</string>
+                  <string>lo</string>
+                  <string>mi</string>
+                  <string>pl</string>
+                  <string>vs</string>
+                  <string>vc</string>
+                  <string>hi</string>
+                  <string>ls</string>
+                  <string>lt</string>
+                  <string>le</string>
+                  <string>gt</string>
+                  <string>ge</string>
+                  <string>al</string>
+                </strings>
+            </scope>
+        </collection>
+    </collections>
+</syntax>

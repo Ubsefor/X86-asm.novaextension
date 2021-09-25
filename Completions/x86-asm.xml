@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<completions>
+    <provider>
+        <selector>x86-asm</selector>
+        <selector>*:not(string,comment)</selector>
+        <expression>\b[a-zA-Z0-9-_]*</expression>
+        <set>x86-asm.entities</set>
+    </provider>
+
+    <!-- Entities -->
+    <set name="x86-asm.entities">
+        <completion string="&quot;" />
+        <completion string="&amp;" />
+        <completion string="&apos;" />
+        <completion string="&lt;" />
+        <completion string="&gt;" />
+    </set>
+</completions>
